@@ -3,9 +3,10 @@ import './App.css';
 import './styles.css';
 import Articles from './Articles';
 import Sidebar from './Sidebar';
+import Title from './Title';
 
 function App() {
-    const [filters, setFilters] = useState({ sort: 'viewed', time: '1', number: 5 });
+    const [filters, setFilters] = useState({ sort: 'viewed', time: '1', number: 15 });
 
     const handleFilterChange = (name, value) => {
         setFilters(prev => ({ ...prev, [name]: value }));
@@ -13,16 +14,19 @@ function App() {
 
     const handleNumberSubmit = (number) => {
         if (number > 15) {
-            alert('Number is higher than 15');
+            alert('Please enter a value 1-15');
         } else {
-            setFilters(prev => ({ ...prev, number }));
+            setFilters(prev => ({ ...prev, number: parseInt(number, 10) }));
         }
     };
 
     return (
-        <div className="body" style={{ display: 'flex' }}>
-            <Sidebar onFilterChange={handleFilterChange} onNumberSubmit={handleNumberSubmit} />
-            <Articles sort={filters.sort} time={filters.time} number={filters.number} />
+        <div>
+            <Title sort={filters.sort} time={filters.time} />
+            <div className="body">
+                <Sidebar onFilterChange={handleFilterChange} onNumberSubmit={handleNumberSubmit} />
+                <Articles sort={filters.sort} time={filters.time} totalArticles={filters.number} />
+            </div>
         </div>
     );
 }
