@@ -13,7 +13,7 @@ function App() {
     };
 
     const handleNumberSubmit = (number) => {
-        if (number > 15) {
+        if (number > 15 || number < 1) {
             alert('Please enter a value 1-15');
         } else {
             setFilters(prev => ({ ...prev, number: parseInt(number, 10) }));
